@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "PYTHONUNBUFFERED": "1"
+    },
+    "builder": "pip",
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "start": {
+    "cmd": "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+  }
+}
