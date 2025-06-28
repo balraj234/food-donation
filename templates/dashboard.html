@@ -1,0 +1,91 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Welcome, {{ user.username }}</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title">Your Donations</h4>
+      {% if donations %}
+      <ul class="list-group" id="donation-list">
+        {% for donation in donations %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+
+         <div>
+           {{ donation.food_type }} ({{ donation.quantity }}) - {{ donation.created_at|date:"M d, Y, h:i A" }}
+
+         </div>
+
+         <div>
+           <a href="{% url 'update_donation' donation.id %}" class="btn btn-sm btn-warning">Update</a>
+          <a href="{% url 'delete_donation' donation.id %}" class="btn btn-sm btn-danger">Delete</a>
+         </div>
+         
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-muted">You haven't made any donations yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#donationModal">
+    Make a New Donation
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="donationModal" tabindex="-1" aria-labelledby="donationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="donationModalLabel">Donate Food</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="donationForm">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+          <div id="message" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("donationForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  fetch("{% url 'donate' %}", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+    },
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      document.getElementById("message").innerHTML = `<p class="text-danger">${data.error}</p>`;
+    } else {
+      document.getElementById("message").innerHTML = `<p class="text-success">Donation added!</p>`;
+      form.reset();
+      const dashList = document.getElementById("donation-list");
+      if (dashList) {
+        const newItem = document.createElement("li");
+        newItem.className = "list-group-item d-flex justify-content-between align-items-center";
+        newItem.innerHTML = `${data.food_type} (${data.quantity}) - ${data.created_at}`;
+        dashList.prepend(newItem);
+      }
+    }
+  });
+});
+</script>
+{% endblock %}

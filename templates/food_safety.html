@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body{
+        background: #ffebcd;
+    }
+  .safety-section {
+    /* background-color: #f9f9f9; */
+    padding: 60px 20px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .safety-section h2 {
+    color: #28a745;
+    margin-bottom: 30px;
+  }
+  .safety-section ul {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  .safety-section li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+  }
+  .badge-do {
+    background-color: #198754;
+  }
+  .badge-dont {
+    background-color: #dc3545;
+  }
+</style>
+
+<div class="container safety-section">
+  <h2 class="text-center">🍽️ Food Safety Guidelines</h2>
+  <p class="lead text-center">
+    To ensure the health and safety of all recipients, please follow these guidelines while donating food.
+  </p>
+  <hr>
+
+  <h4 class="text-success">✅ What You Can Donate</h4>
+  <ul>
+    <li>Freshly cooked food (within 4 hours of preparation)</li>
+    <li>Packed food with valid expiry dates</li>
+    <li>Fruits, vegetables, grains, and dry items</li>
+    <li>Clean, sealed bottled water or drinks</li>
+    <li>Non-perishable canned goods</li>
+  </ul>
+
+  <h4 class="text-danger mt-4">❌ What You Should NOT Donate</h4>
+  <ul>
+    <li>Spoiled or expired food</li>
+    <li>Half-eaten or opened food items</li>
+    <li>Food with strong allergens without labeling</li>
+    <li>Items stored without refrigeration for long</li>
+    <li>Food with pungent smell or discoloration</li>
+  </ul>
+
+  <h4 class="mt-5">🧼 Hygiene Tips for Donors</h4>
+  <ul>
+    <li>Wash your hands before packing food</li>
+    <li>Use clean containers or biodegradable packaging</li>
+    <li>Label food items if possible (type/date)</li>
+    <li>Ensure the food is free of insects or contamination</li>
+    <li>Store items in cool, dry, and clean environments</li>
+  </ul>
+
+  <div class="alert alert-info mt-4">
+    <strong>Note:</strong> All donations are subject to review by our volunteers. Unsafe food may be respectfully declined to protect the recipients.
+  </div>
+</div>
+{% endblock %}

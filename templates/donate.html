@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<style>
+  body {
+    background: url("{% static 'images/donate.png' %}") no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0%;
+  
+    
+    
+  }
+    .donate-bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 15px;
+   
+    
+    
+  }
+
+  .donate-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 550px;
+    margin: auto;
+  }
+
+  .donate-card h3 {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  label {
+    font-weight: 500;
+    color: #333;
+  }
+#id_address{
+height: 100px;
+}
+
+
+  .form-control {
+    border-radius: 10px;
+  }
+
+  .btn-donate {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+
+  .btn-donate:hover {
+    background-color: #218838;
+  }
+</style>
+
+<div class="donate-bg">
+  <div class="donate-card">
+    <h3>{% if editing %}Update Donation{% else %}Donate Food{% endif %}</h3>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="food_type">Food Type</label>
+        {{ form.food_type|add_class:"form-control" }}
+      </div>
+      <div class="mb-3">
+        <label for="quantity">Quantity</label>
+          {{ form.quantity|add_class:"form-control" }}
+      </div>
+      <div  id="pickup"  class="mb-3">
+        <label  for="address">Pickup Address</label>
+       
+          {{ form.address|add_class:"form-control" }}
+      </div>
+      <button type="submit" class="btn btn-donate w-100">{% if editing %}Update Donation{% else %}Submit Donation{% endif %}
+
+      </button>
+         {% if editing %}
+      <a href="{% url 'dashboard' %}" class="btn btn-cancel w-100">Cancel</a>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

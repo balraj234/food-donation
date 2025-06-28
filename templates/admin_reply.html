@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+body{
+   background: #ffebcd;
+}
+.container{
+ 
+  padding: 60px;
+  padding-left: 200px;
+}
+</style>
+
+
+<div class="container  mt-5">
+  <h3>Reply to: {{ message.name }}</h3>
+  <p><strong>Email:</strong> {{ message.email }}</p>
+  <p><strong>Message:</strong> {{ message.message }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-2">Send Reply</button>
+  </form>
+</div>
+{% endblock %}

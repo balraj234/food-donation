@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+   body {
+        background: #ffebcd;
+    }
+</style>
+
+<div class="container mt-4">
+  <h3>Your Submitted Messages</h3>
+  {% for msg in messages %}
+    <div class="card my-3 p-3">
+      <p><strong>Message:</strong> {{ msg.message }}</p>
+      <p><strong>Submitted on:</strong> {{ msg.submitted_at|date:"F j, Y, g:i a" }}</p>
+      {% if msg.reply_content %}
+        <p class="text-success"><strong>Admin Reply:</strong> {{ msg.reply_content }}</p>
+      {% else %}
+        <p class="text-muted"><em>No reply yet</em></p>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No messages yet.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

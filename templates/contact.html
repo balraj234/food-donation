@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+     body{
+        background: #ffebcd;
+    }
+</style>
+
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Contact Us / Feedback</h2>
+
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="alert alert-success">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" class="card p-4 shadow-sm bg-light">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      {{ form.name|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      {{ form.email|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Message</label>
+      {{ form.message|add_class:"form-control" }}
+    </div>
+    <button type="submit" class="btn btn-success w-100">Send Message</button>
+  </form>
+</div>
+{% endblock %}

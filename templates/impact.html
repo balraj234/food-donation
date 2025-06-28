@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    body{
+        background: #ffebcd;
+       
+    }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Our Impact</h2>
+
+  <canvas id="impactChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('impactChart').getContext('2d');
+  const impactChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Total Users', 'Total Donations', 'Meals Served'],
+      datasets: [{
+        label: 'Impact Metrics',
+        data: [{{ total_users }}, {{ total_donations }}, {{ total_meals }}],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(255, 159, 64, 0.7)',
+          'rgba(153, 102, 255, 0.7)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      }
+    }
+  });
+
+</script>
+{% endblock %}

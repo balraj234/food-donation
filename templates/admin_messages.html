@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body{
+     background: #ffebcd;
+  }
+  .container{
+    margin-top: -100px;
+    padding-bottom: 100px;
+  }
+</style>
+
+<div class="container mt-5">
+  <h2 class="mb-4">📩 User Messages</h2>
+
+  {% if messages %}
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Submitted At</th>
+            <th>Replied</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in messages %}
+            <tr>
+              <td>{{ msg.name }}</td>
+              <td>{{ msg.email }}</td>
+              <td>{{ msg.message|linebreaksbr }}</td>
+              <td>{{ msg.submitted_at|date:"M d, Y, h:i A" }}</td>
+              <td>
+                {% if msg.replied %}
+                  ✅ Yes
+                {% else %}
+                  ❌ No
+                {% endif %}
+              </td>
+              <td>
+                {% if msg.replied %}
+                  <div class="text-muted small">
+                    <strong>Sent:</strong> {{ msg.replied_at|date:"M d, Y" }}<br>
+                    {{ msg.reply_content|linebreaksbr }}
+                  </div>
+                {% else %}
+                  <a href="{% url 'admin_reply' msg.id %}" class="btn btn-sm btn-success">Reply</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No messages found.</p>
+  {% endif %}
+</div>
+{% endblock %}

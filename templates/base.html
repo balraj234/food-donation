@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="{% static 'imeges/logo.png' %}" type="image/x-icon">
+  <title>Food Donation Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+   
+
+    .logo {
+      filter: brightness(150%);
+    }
+
+    .navbar-nav .nav-link {
+      position: relative;
+      color: white !important;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 2px;
+      background-color: #da1d1d;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: rgb(37, 187, 207) !important;
+    }
+
+    .container {
+      padding-top: 80px; /* Leave space for navbar */
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: #343a40;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      width: 100%;
+    }
+
+    h1, h2, h3 {
+      color: #28a745;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+      .navbar-brand {
+        font-size: 1rem;
+      }
+      .navbar-nav .nav-link {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body >
+
+<!-- ✅ Responsive Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
+      <img class="logo me-2" src="{% static 'images/logo.png' %}" alt="Logo" style="height: 30px;">
+      Food Donation
+    </a>
+
+    <!-- Toggler for small screens -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+          {% if user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_messages' %}">message</a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'donate' %}">Donate</a>
+            </li>
+               <li class="nav-item">
+          <a class="nav-link" href="{% url 'food_safety' %}">guide</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'impact' %}">Impact</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'message_history' %}">My Messages</a>
+          </li> 
+
+
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Page Content -->
+<main class="flex-fill">
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+</main>
+
+<!-- ✅ Footer -->
+<footer>
+  <h2>Thanks for sharing this food god bless you ❤</h2>
+  <p>© 2025 balraj | Food Donation Platform | Built with Django & Bootstrap</p>
+  <p>contact or any enquery please contact : balrajbala580@gmail.com | +91 9600275849</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

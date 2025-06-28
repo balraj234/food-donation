@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body{
+        background: #ffebcd;
+    }
+  .about-section {
+    background: #ffebcd;
+    padding: 60px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+  }
+  .about-section h2 {
+    color: #28a745;
+    margin-bottom: 20px;
+  }
+  .team-member {
+    text-align: center;
+    padding: 20px;
+  }
+  .team-member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+  }
+</style>
+
+<div class="container about-section">
+  <h2 class="text-center">About Us</h2>
+  <p class="lead text-center">
+    Our mission is to reduce food waste and feed the hungry. We connect donors with local NGOs and volunteers to ensure surplus food reaches those in need.
+  </p>
+  <hr>
+
+  <h3>Our Vision</h3>
+  <p>
+    We envision a world where no one goes to bed hungry and surplus food is effectively redistributed to the underprivileged.
+  </p>
+
+  <h3>Our Team</h3>
+  <div class="row">
+    <div class="col-md-4 team-member">
+      <img src="{% static 'images/founder.jpg' %}" alt="Founder">
+      <h5>Balraj</h5>
+      <p>Founder & Full Stack Developer</p>
+    </div>
+    <div class="col-md-4 team-member">
+      <img src="{% static 'images/coordinator.png' %}" alt="Coordinator">
+      <h5>sreya</h5>
+      <p>Donation Coordinator</p>
+    </div>
+    <div class="col-md-4 team-member">
+      <img src="{% static 'images/supporter.png' %}" alt="Support">
+      <h5>Ravi</h5>
+      <p>Community Outreach</p>
+    </div>
+  </div>
+
+  <h3>Our Partners</h3>
+  <ul>
+    <li>Feeding India</li>
+    <li>Akshaya Patra Foundation</li>
+    <li>Robin Hood Army</li>
+  </ul>
+</div>
+{% endblock %}
